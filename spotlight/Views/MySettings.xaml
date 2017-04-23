@@ -1,0 +1,44 @@
+﻿<Controls:MetroWindow x:Class="spotlight.Views.MySettings"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"                
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:spotlight.Views"
+      xmlns:src="clr-namespace:spotlight"
+      mc:Ignorable="d" 
+      Title="dSearch" Height="321.5" Width="483"
+      BorderBrush="{DynamicResource AccentColorBrush}"
+                      BorderThickness="1" >
+
+    <Controls:MetroWindow.Resources>
+        <Style x:Key="CustomFlyoutStyle"
+                BasedOn="{StaticResource {x:Type Controls:Flyout}}"
+                TargetType="{x:Type Controls:Flyout}">
+            <Setter Property="Header" Value="{Binding Header}" />
+            <Setter Property="IsOpen" Value="{Binding IsOpen}" />
+            <Setter Property="Position" Value="{Binding Position}" />
+            <Setter Property="Theme" Value="{Binding Theme}" />
+        </Style>
+        <src:ApplicationSettings x:Key="appSettings" />
+    </Controls:MetroWindow.Resources>
+
+    <StackPanel VerticalAlignment="Top"  DataContext="{StaticResource }">
+        <TextBlock Padding="5"
+                       FontSize="16"
+                       Background="CadetBlue"
+                        Foreground="White"
+                       Text="Выберите диски для индексации" />
+        <DataGrid ItemsSource="{Binding Path=indexedDrives}"
+                Grid.Row="0"
+                AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                    EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                    Header="IsSelected"
+                                    Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected, Mode=OneWay}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
+
+</Controls:MetroWindow>
