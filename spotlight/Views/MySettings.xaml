@@ -4,8 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"                
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:spotlight.Views"
-      xmlns:src="clr-namespace:spotlight"
+      xmlns:local="clr-namespace:spotlight"
+      xmlns:src="spotlight"
       mc:Ignorable="d" 
       Title="dSearch" Height="321.5" Width="483"
       BorderBrush="{DynamicResource AccentColorBrush}"
@@ -20,16 +20,16 @@
             <Setter Property="Position" Value="{Binding Position}" />
             <Setter Property="Theme" Value="{Binding Theme}" />
         </Style>
-        <src:ApplicationSettings x:Key="appSettings" />
+        <local:ApplicationSettings x:Key="appSettings" />
     </Controls:MetroWindow.Resources>
 
-    <StackPanel VerticalAlignment="Top"  DataContext="{StaticResource }">
+    <StackPanel VerticalAlignment="Top"  DataContext="{StaticResource appSettings}">
         <TextBlock Padding="5"
                        FontSize="16"
                        Background="CadetBlue"
                         Foreground="White"
                        Text="Выберите диски для индексации" />
-        <DataGrid ItemsSource="{Binding Path=indexedDrives}"
+        <!--<DataGrid ItemsSource="{Binding Path=indexedDrives}"
                 Grid.Row="0"
                 AutoGenerateColumns="False">
             <DataGrid.Columns>
@@ -38,7 +38,16 @@
                                     Header="IsSelected"
                                     Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected, Mode=OneWay}" />
             </DataGrid.Columns>
-        </DataGrid>
+        </DataGrid>-->
+        <ListBox Height="100" ItemsSource="{Binding Path=indexedDrives}" SelectedItem="{Binding SelectedSection}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <ListBoxItem IsSelected="{Binding IsChecked}">
+                        <CheckBox IsChecked="{Binding IsChecked}" Content="{Binding Path=Item}" />
+                    </ListBoxItem>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </StackPanel>
 
 </Controls:MetroWindow>

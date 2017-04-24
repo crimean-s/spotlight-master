@@ -5,14 +5,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static spotlight.Helpers.FileSearchHelpers;
+using System.Windows;
 
 namespace spotlight
 {
-    public static class ApplicationSettings
+    public class ApplicationSettings : DependencyObject
     {
-        public static List<string> indexedDrives { get; private set; }
+        public ApplicationSettings appSet = new ApplicationSettings();
 
-        public static void updateApplicationSettings()
+
+
+        public ApplicationSettings()
+        {
+            updateApplicationSettings();
+        }
+
+        public List<string> indexedDrives { get; private set; }
+
+        public void updateApplicationSettings()
         {
             if (ConfigurationManager.AppSettings["indexedDrives"] == "")
             {

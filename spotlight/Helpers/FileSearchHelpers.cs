@@ -14,7 +14,14 @@ namespace spotlight.Helpers
 
             try
             {
-                drives = System.IO.Directory.GetLogicalDrives().ToList<string>();
+                // drives = System.Environment.GetLogicalDrives().ToList<string>();
+                var dr = System.IO.DriveInfo.GetDrives().Where(x => x.DriveType == System.IO.DriveType.Fixed).ToList();
+                foreach (var item in dr)
+                {
+                    drives.Add(item.Name);
+                }
+
+
             }
             catch (System.IO.IOException)
             {
