@@ -13,14 +13,18 @@ namespace spotlight
 {
     public partial class MainWindow : MetroWindow
     {
-        private bool ResultsFocus = false;
         private string SearchString { get; set; }
 
         // создание объекта класса SearchEngine
+       
+        ApplicationSettings appSet = new ApplicationSettings();
         private SearchEngine SearchEngine = new SearchEngine();
 
         public MainWindow()
         {
+           
+            appSet.updateAppSet(appSet);
+
             InitializeComponent();
             SearchString = "";
             DataContext = this;

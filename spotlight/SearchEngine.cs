@@ -47,7 +47,6 @@ namespace spotlight
             DeepFileSearch = 4;
 
             // Проверка конфигурации
-            ApplicationSettings.updateApplicationSettings();
 
             // Пути поиска
             List<string> paths = new List<string>()

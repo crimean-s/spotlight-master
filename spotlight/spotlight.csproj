@@ -85,8 +85,8 @@
     <Compile Include="SearchEngine.cs" />
     <Compile Include="ListItem\SearchItem.cs" />
     <Compile Include="SearchRangeManager.cs" />
-    <Compile Include="Views\MySettings.xaml.cs">
-      <DependentUpon>MySettings.xaml</DependentUpon>
+    <Compile Include="Views\MySettingsView.xaml.cs">
+      <DependentUpon>MySettingsView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -113,7 +113,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\MySettings.xaml">
+    <Page Include="Views\MySettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
