@@ -66,7 +66,10 @@ namespace spotlight
 
             foreach (var path in paths)
             {
-                FileList.AddRange(GetFileListDeep(path, "*", DeepFileSearch));
+                if(path != "")
+                {
+                    FileList.AddRange(GetFileListDeep(path, "*", DeepFileSearch));
+                }                
             }
 
             GenereateData();

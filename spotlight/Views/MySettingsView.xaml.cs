@@ -21,6 +21,8 @@ namespace spotlight.Views
         public MySettings()
         {
             InitializeComponent();
+
+            ApplicationSettings.getApplicationSettings();
         }
     }
 }

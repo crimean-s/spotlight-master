@@ -4,9 +4,13 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static spotlight.Helpers.FileSearchHelpers;
 using System.Windows;
 using System.Collections.ObjectModel;
+using spotlight.Helpers;
+using static spotlight.Helpers.FileSearchHelpers;
+using Newtonsoft.Json;
+
+//http://piotrgankiewicz.com/2016/06/06/storing-c-app-settings-with-json/
 
 namespace spotlight
 {
@@ -14,7 +18,9 @@ namespace spotlight
     {
         public static ApplicationSettings AppSet { get; set; }
 
-        public ObservableCollection<string> IndexedDrives { get; private set; }
+        public ObservableCollection<Drive> IndexedDrives { get; set; } 
+
+        public string pole { get; set; } = "dlkcnsldkc";
 
         
 
@@ -24,7 +30,15 @@ namespace spotlight
 
             if (ConfigurationManager.AppSettings["indexedDrives"] == "")
             {
-                ConfigurationManager.AppSettings["indexedDrives"] = string.Join(";", GetLogicalDrives().ToArray());
+                var dr = GetLogicalDrives();
+                foreach (var item in dr)
+                {
+                    ConfigurationManager.AppSettings["indexedDrives"] += item.Name + ";";
+                }
+                ConfigurationManager.AppSettings["jsonDrives"] = JsonConvert.SerializeObject(new
+                {
+                    operations = dr
+                });
             }
         } 
 
@@ -35,7 +49,13 @@ namespace spotlight
 
         public static void getDrivesFromSettings()
         {
-            AppSet.IndexedDrives = new ObservableCollection<string>(ConfigurationManager.AppSettings["indexedDrives"].Split(new char[] { ';' }));
+            List<string> dr = new List<string>(ConfigurationManager.AppSettings["indexedDrives"].Split(new char[] { ';' }));
+            foreach (var item in dr)
+            {
+
+            }
+
+            string drs = ConfigurationManager.AppSettings["jsonDrives"];
         }
 
         public static ApplicationSettings GetAppSet()
@@ -47,7 +67,10 @@ namespace spotlight
         {
             AppSet = app;
         }
+
+        
     }
 
+       
 
 }
