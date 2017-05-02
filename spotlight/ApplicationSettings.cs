@@ -17,7 +17,7 @@ namespace spotlight
     public class ApplicationSettings
     {
         public static ApplicationSettings AppSet { get; set; }
-
+        
         public ObservableCollection<Drive> IndexedDrives { get; set; } 
 
         public string pole { get; set; } = "dlkcnsldkc";
@@ -37,7 +37,7 @@ namespace spotlight
                 }
                 ConfigurationManager.AppSettings["jsonDrives"] = JsonConvert.SerializeObject(new
                 {
-                    operations = dr
+                    indexedDrivesConf = dr
                 });
             }
         } 
@@ -56,6 +56,9 @@ namespace spotlight
             }
 
             string drs = ConfigurationManager.AppSettings["jsonDrives"];
+            var indDr = JsonConvert.DeserializeObject<dynamic>(drs).indexedDrivesConf;
+            
+            
         }
 
         public static ApplicationSettings GetAppSet()
