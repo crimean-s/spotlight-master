@@ -8,7 +8,7 @@
       mc:Ignorable="d" 
       Title="dSearch" Height="321.5" Width="483"
       BorderBrush="{DynamicResource AccentColorBrush}"
-                      BorderThickness="1" >
+                      BorderThickness="1" Closed="MetroWindow_Closed" >
 
     <Controls:MetroWindow.Resources>
         <Style x:Key="CustomFlyoutStyle"
@@ -19,8 +19,7 @@
             <Setter Property="Position" Value="{Binding Position}" />
             <Setter Property="Theme" Value="{Binding Theme}" />
         </Style>
-        <!--<local:ApplicationSettings x:Key="applicationSettings"/>-->
-        <local:ApplicationSettings x:Key="applicationSettings"/>
+        <local:ApplicationSettings x:Key="applicationSettings" />
     </Controls:MetroWindow.Resources>
 
     <StackPanel VerticalAlignment="Top"  DataContext="{StaticResource applicationSettings}">
@@ -29,27 +28,8 @@
                        Background="CadetBlue"
                         Foreground="White"
                        Text="Выберите диски для индексации" />
-        <!--<DataGrid ItemsSource="{Binding Path=indexedDrives}"
-                Grid.Row="0"
-                AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                                    EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                                    Header="IsSelected"
-                                    Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected, Mode=OneWay}" />
-            </DataGrid.Columns>
-        </DataGrid>-->
         
-        <!--<ListBox Height="100" ItemsSource="{Binding Path=indexedDrives}" SelectedItem="{Binding SelectedSection}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <ListBoxItem Content="{Binding IndexedDrives}">
-                        --><!--<CheckBox IsChecked="{Binding IsChecked}" Content="{Binding Path=Item}" />--><!--
-                    </ListBoxItem>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>-->
-        <ListBox Height="100" ItemsSource="{Binding Path=IndexedDrives}">
+        <ListBox x:Name="listDrives" Height="100" ItemsSource="{Binding Path=IndexedDrives}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

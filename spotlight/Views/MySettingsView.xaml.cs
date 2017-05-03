@@ -21,8 +21,17 @@ namespace spotlight.Views
         public MySettings()
         {
             InitializeComponent();
+            this.Loaded += MySettings_Loaded;
+        }
 
-            ApplicationSettings.getApplicationSettings();
+        private void MySettings_Loaded(object sender, RoutedEventArgs e)
+        {
+            listDrives.ItemsSource = ApplicationSettings.AppSet.IndexedDrives;
+        }
+
+        private void MetroWindow_Closed(object sender, EventArgs e)
+        {
+            ApplicationSettings.AppSet.saveAppSettings();
         }
     }
 }

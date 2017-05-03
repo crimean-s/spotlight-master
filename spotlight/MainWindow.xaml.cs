@@ -23,7 +23,7 @@ namespace spotlight
         public MainWindow()
         {
            
-            appSet.updateAppSet(appSet);
+            // appSet.updateAppSet(appSet);
 
             InitializeComponent();
             SearchString = "";

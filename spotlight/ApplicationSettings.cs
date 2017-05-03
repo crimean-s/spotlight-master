@@ -9,38 +9,48 @@ using System.Collections.ObjectModel;
 using spotlight.Helpers;
 using static spotlight.Helpers.FileSearchHelpers;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Reflection;
 
 //http://piotrgankiewicz.com/2016/06/06/storing-c-app-settings-with-json/
 
 namespace spotlight
 {
+    
     public class ApplicationSettings
     {
         public static ApplicationSettings AppSet { get; set; }
         
-        public ObservableCollection<Drive> IndexedDrives { get; set; } 
+        public ObservableCollection<Drive> IndexedDrives { get; set; }
 
         public string pole { get; set; } = "dlkcnsldkc";
 
         
 
+
+
         static ApplicationSettings()
         {
             AppSet = new ApplicationSettings();
 
-            if (ConfigurationManager.AppSettings["indexedDrives"] == "")
+            if (ConfigurationManager.AppSettings["jsonDrives"] == "")
             {
                 var dr = GetLogicalDrives();
-                foreach (var item in dr)
-                {
-                    ConfigurationManager.AppSettings["indexedDrives"] += item.Name + ";";
-                }
+                
                 ConfigurationManager.AppSettings["jsonDrives"] = JsonConvert.SerializeObject(new
                 {
                     indexedDrivesConf = dr
-                });
+                });                
             }
-        } 
+
+            getDrivesFromSettings();
+            AppSet.IndexedDrives.CollectionChanged += IndexedDrives_CollectionChanged;
+        }
+
+        private static void IndexedDrives_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            
+        }
 
         public static void getApplicationSettings()
         {
@@ -49,16 +59,10 @@ namespace spotlight
 
         public static void getDrivesFromSettings()
         {
-            List<string> dr = new List<string>(ConfigurationManager.AppSettings["indexedDrives"].Split(new char[] { ';' }));
-            foreach (var item in dr)
-            {
-
-            }
-
             string drs = ConfigurationManager.AppSettings["jsonDrives"];
-            var indDr = JsonConvert.DeserializeObject<dynamic>(drs).indexedDrivesConf;
-            
-            
+            JArray indDr = JsonConvert.DeserializeObject<dynamic>(drs).indexedDrivesConf;
+       
+            AppSet.IndexedDrives = indDr.ToObject<ObservableCollection<Drive>>();
         }
 
         public static ApplicationSettings GetAppSet()
@@ -69,6 +73,29 @@ namespace spotlight
         public void updateAppSet(ApplicationSettings app)
         {
             AppSet = app;
+        }
+
+        public void saveAppSettings()
+        {
+            //ConfigurationManager.AppSettings["jsonDrives"] = JsonConvert.SerializeObject(new
+            //{
+            //    indexedDrivesConf = IndexedDrives
+            //});
+
+            string appPath = System.IO.Directory.GetCurrentDirectory();
+            string configFile = System.IO.Path.Combine(appPath, "App.config");
+            ExeConfigurationFileMap configFileMap = new ExeConfigurationFileMap();
+            configFileMap.ExeConfigFilename = configFile;
+
+            Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(configFileMap, ConfigurationUserLevel.None);
+
+            configuration.AppSettings.Settings["jsonDrives"].Value = JsonConvert.SerializeObject(new
+            {
+                indexedDrivesConf = IndexedDrives
+            });
+
+            configuration.Save();
+            ConfigurationManager.RefreshSection("appSettings");
         }
 
         
