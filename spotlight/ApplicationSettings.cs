@@ -10,9 +10,10 @@ using spotlight.Helpers;
 using static spotlight.Helpers.FileSearchHelpers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Reflection;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 
-//http://piotrgankiewicz.com/2016/06/06/storing-c-app-settings-with-json/
+
 
 namespace spotlight
 {
@@ -23,25 +24,29 @@ namespace spotlight
         
         public ObservableCollection<Drive> IndexedDrives { get; set; }
 
-        public string pole { get; set; } = "dlkcnsldkc";
+        // Get the application configuration file.
+        public static System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
-        
-
-
+        public static string jsonDrivesFromConfig = "";
 
         static ApplicationSettings()
         {
             AppSet = new ApplicationSettings();
+            config = ConfigurationManager.OpenMappedExeConfiguration(getConfigFileMap(), ConfigurationUserLevel.None);
 
-            if (ConfigurationManager.AppSettings["jsonDrives"] == "")
+           
+
+            if (config.AppSettings.Settings["jsonDrives"].Value == "")
             {
                 var dr = GetLogicalDrives();
-                
-                ConfigurationManager.AppSettings["jsonDrives"] = JsonConvert.SerializeObject(new
+
+                config.AppSettings.Settings["jsonDrives"].Value = JsonConvert.SerializeObject(new
                 {
                     indexedDrivesConf = dr
                 });                
             }
+
+            jsonDrivesFromConfig = config.AppSettings.Settings["jsonDrives"].Value;
 
             getDrivesFromSettings();
             AppSet.IndexedDrives.CollectionChanged += IndexedDrives_CollectionChanged;
@@ -59,7 +64,7 @@ namespace spotlight
 
         public static void getDrivesFromSettings()
         {
-            string drs = ConfigurationManager.AppSettings["jsonDrives"];
+            string drs = config.AppSettings.Settings["jsonDrives"].Value;
             JArray indDr = JsonConvert.DeserializeObject<dynamic>(drs).indexedDrivesConf;
        
             AppSet.IndexedDrives = indDr.ToObject<ObservableCollection<Drive>>();
@@ -75,30 +80,74 @@ namespace spotlight
             AppSet = app;
         }
 
-        public void saveAppSettings()
-        {
-            //ConfigurationManager.AppSettings["jsonDrives"] = JsonConvert.SerializeObject(new
-            //{
-            //    indexedDrivesConf = IndexedDrives
-            //});
+        public bool saveAppSettings()
+        {       
+            // Create a new configuration file by saving 
+            // the application configuration to a new file.            
 
             string appPath = System.IO.Directory.GetCurrentDirectory();
             string configFile = System.IO.Path.Combine(appPath, "App.config");
+
+            try
+            {
+                config.SaveAs(configFile, ConfigurationSaveMode.Full);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                config.Save();
+            }            
+
+            // Map the new configuration file.
             ExeConfigurationFileMap configFileMap = new ExeConfigurationFileMap();
             configFileMap.ExeConfigFilename = configFile;
 
-            Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(configFileMap, ConfigurationUserLevel.None);
+            config = ConfigurationManager.OpenMappedExeConfiguration(configFileMap, ConfigurationUserLevel.None);
 
-            configuration.AppSettings.Settings["jsonDrives"].Value = JsonConvert.SerializeObject(new
+            
+
+            string jsonDrives = JsonConvert.SerializeObject(new
             {
                 indexedDrivesConf = IndexedDrives
             });
 
-            configuration.Save();
+
+            config.AppSettings.Settings["jsonDrives"].Value = jsonDrives;
+            
+
+            // Save the configuration file.
+            config.Save(ConfigurationSaveMode.Modified);
+
+            // Force a reload of the changed section. This 
+            // makes the new values available for reading.
             ConfigurationManager.RefreshSection("appSettings");
+
+            
+
+            if (jsonDrivesFromConfig != jsonDrives)
+            {
+                return true;
+            }
+            return false;
         }
 
-        
+        public static ExeConfigurationFileMap getConfigFileMap()
+        {
+            string appPath = System.IO.Directory.GetCurrentDirectory();
+            string configFile = System.IO.Path.Combine(appPath, "App.config");
+
+            // Map the new configuration file.
+            ExeConfigurationFileMap configFileMap = new ExeConfigurationFileMap();
+            configFileMap.ExeConfigFilename = configFile;
+
+            if(ConfigurationManager.OpenMappedExeConfiguration(configFileMap, ConfigurationUserLevel.None).HasFile == false)
+            {
+                config.SaveAs(configFile, ConfigurationSaveMode.Full);
+            }
+
+            return configFileMap;
+
+        }
     }
 
        

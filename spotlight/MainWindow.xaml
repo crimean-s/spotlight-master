@@ -15,6 +15,7 @@
                       WindowButtonCommandsOverlayBehavior="Always"
                       WindowStartupLocation="CenterScreen"
                       ShowMaxRestoreButton="False"
+                      SaveWindowPosition="True"
                       KeyDown="Window_OnKeyUp"
                       >
     <Window.Resources>

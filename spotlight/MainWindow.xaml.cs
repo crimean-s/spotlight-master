@@ -159,7 +159,7 @@ namespace spotlight
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             MySettings settingsWindows = new MySettings();
-            settingsWindows.Show();
+            settingsWindows.ShowDialog();
         }
     }
 }

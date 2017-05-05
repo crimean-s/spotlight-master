@@ -13,11 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace spotlight.Views
-{    
+{
+
     public partial class MySettings : MetroWindow
     {
+        private bool closeDialogSettings;
+
         public MySettings()
         {
             InitializeComponent();
@@ -27,11 +31,56 @@ namespace spotlight.Views
         private void MySettings_Loaded(object sender, RoutedEventArgs e)
         {
             listDrives.ItemsSource = ApplicationSettings.AppSet.IndexedDrives;
+            
         }
 
         private void MetroWindow_Closed(object sender, EventArgs e)
+        {            
+            //
+            
+        }
+
+        private async void ShowConfirmationDialog(System.ComponentModel.CancelEventArgs e)
         {
-            ApplicationSettings.AppSet.saveAppSettings();
+            if (e.Cancel) return;
+
+            // we want manage the closing itself!
+            e.Cancel = !this.closeDialogSettings;
+            // yes we want now really close the window
+            if (this.closeDialogSettings) return;
+
+            var mySettings = new MetroDialogSettings()
+            {
+                AffirmativeButtonText = "Да, хочу",
+                NegativeButtonText = "Нет",
+                AnimateShow = true,
+                AnimateHide = false
+            };
+            var result = await this.ShowMessageAsync(
+                "Перезапустить приложение?",
+                "Вы изменили настройки индексации. Хотите cделать рестарт приложения?",
+                MessageDialogStyle.AffirmativeAndNegative, mySettings);
+
+            this.closeDialogSettings = result == MessageDialogResult.Affirmative;
+
+            if (this.closeDialogSettings)
+            {
+                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                Application.Current.Shutdown();
+            }
+        }
+
+        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (ApplicationSettings.AppSet.saveAppSettings())
+            {
+                ShowConfirmationDialog(e);
+            }                
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

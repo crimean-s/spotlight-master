@@ -58,14 +58,13 @@ namespace spotlight
                 Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFiles),
                 Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory),
                 Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)
-            };
-            //var d = new List<string>(ConfigurationManager.AppSettings["indexedDrives"].Split(new char[] { ';' }));
+            };            
+
             var dr = ApplicationSettings.AppSet.IndexedDrives.Where(x=>x.isIndexed == true);
             foreach (var item in dr)
             {
                 paths.Add(item.Name);
             }
-            //paths.AddRange(dr);
 
             FileList = new List<string>();
 

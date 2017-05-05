@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,14 +15,11 @@ namespace spotlight.Helpers
 
             try
             {
-                // drives = System.Environment.GetLogicalDrives().ToList<string>();
                 var dr = System.IO.DriveInfo.GetDrives().Where(x => x.DriveType == System.IO.DriveType.Fixed).ToList();
                 foreach (var item in dr)
                 {
-                    drives.Add(new Drive (true, item.Name, item.TotalSize));
+                    drives.Add(new Drive (true, item.Name, decimal.Round(item.TotalSize / 1073741824m, 2, MidpointRounding.AwayFromZero)));
                 }
-
-
             }
             catch (System.IO.IOException)
             {
@@ -37,17 +35,19 @@ namespace spotlight.Helpers
         }
     }
 
-    public class Drive
+    public class Drive : INotifyPropertyChanged
     {
         public bool isIndexed { get; set; }
         public string Name { get; set; }
-        public long Size { get; set; }
+        public decimal Size { get; set; }
 
-        public Drive(bool isIndexed, String Name, long Size)
+        public Drive(bool isIndexed, String Name, decimal Size)
         {
             this.isIndexed = isIndexed;
             this.Name = Name;
             this.Size = Size;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
