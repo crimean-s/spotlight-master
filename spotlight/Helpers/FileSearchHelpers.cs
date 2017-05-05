@@ -5,10 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace spotlight.Helpers
+namespace dSearch.Helpers
 {
     public static class FileSearchHelpers
     {
+
+        /// <summary>
+        /// Получение списка логических дисков
+        /// </summary>
         public static List<Drive> GetLogicalDrives()
         {
             List<Drive> drives = new List<Drive>();
@@ -27,8 +31,7 @@ namespace spotlight.Helpers
             }
             catch (System.Security.SecurityException)
             {
-                System.Console.WriteLine("The caller does not have the " +
-                    "required permission.");
+                System.Console.WriteLine("The caller does not have the required permission.");
             }
 
             return drives;

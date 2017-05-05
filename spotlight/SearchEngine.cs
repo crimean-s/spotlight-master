@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using spotlight.ListItem;
+using dSearch.ListItem;
 using System.Configuration;
 
-namespace spotlight
+namespace dSearch
 {
 
     public struct SearchItemStruct

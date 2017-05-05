@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace spotlight
+namespace dSearch
 {
     public enum EFileType
     {
@@ -14,7 +14,8 @@ namespace spotlight
         Video,
         Folders,
         Other,
-        Archive
+        Archive,
+        Code
     }
 
     public struct FileTypeName
@@ -69,21 +70,21 @@ namespace spotlight
                 Type = EFileType.Document,
                 TypeName = "Документы",
                 Names = new[] {"Документы"},
-                Regex = new Regex(@"\.(txt|docx?|pdf|djvu)$")
+                Regex = new Regex(@"\.(txt|docx?|pdf|djvu|xlsx?)$")
             },
             new FileTypeName()
             {
                 Type = EFileType.Images,
                 TypeName = "Изображения",
                 Names = new[] {"Изображения"},
-                Regex = new Regex(@"\.(png|jpe?g|gif)$")
+                Regex = new Regex(@"\.(png|jpe?g|gif|bmp)$")
             },
             new FileTypeName()
             {
                 Type = EFileType.Music,
                 TypeName = "Музыка",
                 Names = new[] {"Музыка"},
-                Regex = new Regex(@"\.(mp\d|wav)$")
+                Regex = new Regex(@"\.(mp\d|wav|aac)$")
             },
             new FileTypeName()
             {
@@ -97,7 +98,7 @@ namespace spotlight
                 Type = EFileType.Video,
                 TypeName = "Видео",
                 Names = new[] {"Видео"},
-                Regex = new Regex(@"\.(mp4|avi)$")
+                Regex = new Regex(@"\.(mp4|avi|mkv)$")
             },
             new FileTypeName()
             {
@@ -106,6 +107,14 @@ namespace spotlight
                 Names = new[] {"Папки"},
                 Regex = new Regex(@"\\$")
             },
+            new FileTypeName()
+            {
+                Type = EFileType.Code,
+                TypeName = "Код",
+                Names = new[] {"Код"},
+                Regex = new Regex(@"\.(php|js|html|cs|csproj|css|cpp|tpl)$")
+            }
+            ,
             new FileTypeName()
             {
                 Type = EFileType.Other,

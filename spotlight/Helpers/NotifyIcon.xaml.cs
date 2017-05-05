@@ -2,10 +2,11 @@
 using System.Windows;
 using System.Windows.Input;
 
-namespace spotlight
+namespace dSearch
 {
     public class NotifyIcon
     {
+        private WindowState winState = WindowState.Normal;
 
         public ICommand ShowWindowCommand
         {
@@ -18,6 +19,7 @@ namespace spotlight
                     {
                         Application.Current.MainWindow = new MainWindow();
                         Application.Current.MainWindow.Show();
+                        Application.Current.MainWindow.Focus();
                     }
                 };
             }
@@ -32,7 +34,8 @@ namespace spotlight
             {
                 return new DelegateCommand
                 {
-                    CommandAction = () => Application.Current.MainWindow.Close(),
+                    
+                    CommandAction = () => Application.Current.MainWindow.Hide(),
                     CanExecuteFunc = () => Application.Current.MainWindow != null
                 };
             }

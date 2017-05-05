@@ -1,8 +1,8 @@
-﻿<Application x:Class="spotlight.App"
+﻿<Application x:Class="dSearch.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:spotlight"
-             StartupUri="MainWindow.xaml">
+             xmlns:local="clr-namespace:dSearch"
+             StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -14,7 +14,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <!-- Task bar -->
-                <ResourceDictionary Source="NotifyIcon.xaml" />
+                <ResourceDictionary Source="Views/NotifyIcon.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 
-namespace spotlight
+namespace dSearch
 {
     public class HighlightTextBlock : TextBlock
     {

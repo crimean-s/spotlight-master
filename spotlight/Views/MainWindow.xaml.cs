@@ -5,11 +5,11 @@ using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Input;
 using MahApps.Metro.Controls;
-using spotlight.ListItem;
+using dSearch.ListItem;
 using System.Linq;
-using spotlight.Views;
+using dSearch.Views;
 
-namespace spotlight
+namespace dSearch
 {
     public partial class MainWindow : MetroWindow
     {

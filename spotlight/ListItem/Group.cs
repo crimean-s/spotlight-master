@@ -1,4 +1,4 @@
-﻿namespace spotlight.ListItem
+﻿namespace dSearch.ListItem
 {
     class Group: SearchItem
     {

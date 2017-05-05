@@ -1,4 +1,4 @@
-﻿namespace spotlight.ListItem
+﻿namespace dSearch.ListItem
 {
     public class SearchItemTile : SearchItem
     {

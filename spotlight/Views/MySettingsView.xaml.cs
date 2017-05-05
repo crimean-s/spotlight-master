@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 
-namespace spotlight.Views
+namespace dSearch.Views
 {
 
     public partial class MySettings : MetroWindow

@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Collections.ObjectModel;
-using spotlight.Helpers;
-using static spotlight.Helpers.FileSearchHelpers;
+using dSearch.Helpers;
+using static dSearch.Helpers.FileSearchHelpers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using MahApps.Metro.Controls;
@@ -15,7 +15,7 @@ using MahApps.Metro.Controls.Dialogs;
 
 
 
-namespace spotlight
+namespace dSearch
 {
     
     public class ApplicationSettings

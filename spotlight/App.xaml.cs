@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using Hardcodet.Wpf.TaskbarNotification;
 
-namespace spotlight
+namespace dSearch
 {
     /// <summary>
     /// Логика взаимодействия для App.xaml
