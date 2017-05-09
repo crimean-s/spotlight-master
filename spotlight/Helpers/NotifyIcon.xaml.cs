@@ -6,19 +6,20 @@ namespace dSearch
 {
     public class NotifyIcon
     {
-        private WindowState winState = WindowState.Normal;
-
+        /// <summary>
+        /// Открывает окно из трея
+        /// </summary>
         public ICommand ShowWindowCommand
         {
             get
             {
                 return new DelegateCommand
-                {
-                    // CanExecuteFunc = () => Application.Current.MainWindow == null,
-                    CommandAction = () =>
-                    {
-                        Application.Current.MainWindow = new MainWindow();
-                        Application.Current.MainWindow.Show();
+                {                    
+                    CommandAction = () => {
+                        Application.Current.MainWindow.WindowState = WindowState.Normal;
+                        Application.Current.MainWindow.Activate();
+                        Application.Current.MainWindow.Topmost = true;
+                        Application.Current.MainWindow.Topmost = false;
                         Application.Current.MainWindow.Focus();
                     }
                 };
@@ -26,16 +27,15 @@ namespace dSearch
         }
 
         /// <summary>
-        /// Hides the main window. This command is only enabled if a window is open.
+        /// Минимизирует окно
         /// </summary>
         public ICommand HideWindowCommand
         {
             get
             {
                 return new DelegateCommand
-                {
-                    
-                    CommandAction = () => Application.Current.MainWindow.Hide(),
+                {                    
+                    CommandAction = () => Application.Current.MainWindow.WindowState = WindowState.Minimized,
                     CanExecuteFunc = () => Application.Current.MainWindow != null
                 };
             }
@@ -43,7 +43,7 @@ namespace dSearch
 
 
         /// <summary>
-        /// Shuts down the application.
+        /// Закрывает приложение
         /// </summary>
         public ICommand ExitApplicationCommand
         {

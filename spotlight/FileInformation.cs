@@ -20,8 +20,8 @@ namespace dSearch
         private string displayName;
         public string DisplayName
         {
-            get { return displayName ?? (displayName = Path.GetFileName(FileLocation)); } // показываем расширение
-            //get { return displayName ?? (displayName = Path.GetFileNameWithoutExtension(FileLocation)); } // не показываем расширение файла
+            //get { return displayName ?? (displayName = Path.GetFileName(FileLocation)); } // показываем расширение
+            get { return displayName ?? (displayName = Path.GetFileNameWithoutExtension(FileLocation)); } // не показываем расширение файла
         }
 
         private string extension;

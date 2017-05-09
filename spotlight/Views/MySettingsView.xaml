@@ -32,7 +32,7 @@
                             Foreground="White"
                            Text="Выберите диски для индексации" />
 
-            <ListBox x:Name="listDrives" Height="100" ItemsSource="{Binding Path=IndexedDrives}">
+            <ListBox x:Name="listDrives" Height="auto" ItemsSource="{Binding Path=IndexedDrives}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -50,6 +50,15 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            <TextBlock Padding="5"
+                           FontSize="16"
+                           Background="CadetBlue"
+                            Foreground="White"
+                           Text="Выберите глубину индексации" />
+            
+            <Slider Ticks="{Binding}" x:Name="deepFileSearchSlider" Margin="15,10,15,10" Maximum="5" TickPlacement="TopLeft" Value="4" Minimum="1"  IsSnapToTickEnabled="True" SmallChange="0" AutoToolTipPlacement="BottomRight">
+
+            </Slider>
         </StackPanel>
         <StackPanel VerticalAlignment="Bottom">
             <Button Margin="5" FontSize="16" Style="{StaticResource AccentedSquareButtonStyle}" Width="150" Click="Button_Click">Сохранить</Button>

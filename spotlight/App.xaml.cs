@@ -18,9 +18,12 @@ namespace dSearch
             notifyIcon = (TaskbarIcon)FindResource("NotifyIcon");
         }
 
+        /// <summary>
+        /// Удаление иконки при выходе
+        /// </summary>
         protected override void OnExit(ExitEventArgs e)
         {
-            notifyIcon.Dispose(); //the icon would clean up automatically, but this is cleaner
+            notifyIcon.Dispose(); 
             base.OnExit(e);
         }
     }

@@ -4,9 +4,9 @@
                     xmlns:tocal="clr-namespace:dSearch">
 
     <ContextMenu x:Shared="false" x:Key="NotyfyMenu">
-        <MenuItem Header="Show Window" Command="{Binding ShowWindowCommand}" />
+        <MenuItem Header="Открыть поиск" Command="{Binding ShowWindowCommand}" Margin="0" />
         <Separator />
-        <MenuItem Header="Exit" Command="{Binding ExitApplicationCommand}" />
+        <MenuItem Header="Выйти" Command="{Binding ExitApplicationCommand}" Margin="0" />
     </ContextMenu>
 
 
