@@ -44,7 +44,7 @@ namespace dSearch
 
         public SearchEngine()
         {
-            DeepFileSearch = Convert.ToInt32(ConfigurationManager.AppSettings["deepFileSearch"]);
+            DeepFileSearch = ApplicationSettings.DeepFileSearchValue;
 
             // Проверка конфигурации
 

@@ -33,12 +33,7 @@ namespace dSearch.Views
             listDrives.ItemsSource = ApplicationSettings.AppSet.IndexedDrives;
             
         }
-
-        private void MetroWindow_Closed(object sender, EventArgs e)
-        {            
-            //
-            
-        }
+        
 
         private async void ShowConfirmationDialog(System.ComponentModel.CancelEventArgs e)
         {

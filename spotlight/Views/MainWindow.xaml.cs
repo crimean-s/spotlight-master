@@ -8,6 +8,7 @@ using MahApps.Metro.Controls;
 using dSearch.ListItem;
 using System.Linq;
 using dSearch.Views;
+using System.IO;
 
 namespace dSearch
 {
@@ -149,8 +150,11 @@ namespace dSearch
             if (e.Key == Key.Enter & listBox.SelectedItem != null)
             {
                 var a = (SearchItemSmallTitle)listBox.SelectedItem;
-
-                System.Windows.MessageBox.Show(a.file.DisplayName);
+                if (File.Exists(a.file.FileLocation))
+                {
+                    Process.Start(new ProcessStartInfo("explorer.exe", " /select, " + a.file.FileLocation));
+                }
+                // System.Windows.MessageBox.Show(a.file.DisplayName);
                 listBox.Items.Refresh();
 
             }

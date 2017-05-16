@@ -8,7 +8,7 @@
       mc:Ignorable="d" 
       Title="dSearch" Height="321.5" Width="483"
       BorderBrush="{DynamicResource AccentColorBrush}"
-      BorderThickness="1" Closed="MetroWindow_Closed" Closing="MetroWindow_Closing"
+      BorderThickness="1" Closing="MetroWindow_Closing"
       ShowMaxRestoreButton="False"
       ShowMinButton="False"
       SaveWindowPosition="True">
@@ -25,7 +25,11 @@
         <local:ApplicationSettings x:Key="applicationSettings" />
     </Controls:MetroWindow.Resources>
     <Grid>
-        <StackPanel VerticalAlignment="Top"  DataContext="{StaticResource applicationSettings}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="49*"/>
+            <ColumnDefinition Width="424*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel VerticalAlignment="Top"  DataContext="{StaticResource applicationSettings}" Grid.ColumnSpan="2">
             <TextBlock Padding="5"
                            FontSize="16"
                            Background="CadetBlue"
@@ -55,12 +59,12 @@
                            Background="CadetBlue"
                             Foreground="White"
                            Text="Выберите глубину индексации" />
-            
-            <Slider Ticks="{Binding}" x:Name="deepFileSearchSlider" Margin="15,10,15,10" Maximum="5" TickPlacement="TopLeft" Value="4" Minimum="1"  IsSnapToTickEnabled="True" SmallChange="0" AutoToolTipPlacement="BottomRight">
+
+            <Slider Ticks="{Binding}" Value="{Binding Path=DeepFileSearchValue,Mode=TwoWay}" x:Name="deepFileSearchSlider" Margin="15,10,15,10" Maximum="5" TickPlacement="TopLeft" Minimum="1"  IsSnapToTickEnabled="True" SmallChange="0" AutoToolTipPlacement="BottomRight">
 
             </Slider>
         </StackPanel>
-        <StackPanel VerticalAlignment="Bottom">
+        <StackPanel VerticalAlignment="Bottom" Grid.ColumnSpan="2">
             <Button Margin="5" FontSize="16" Style="{StaticResource AccentedSquareButtonStyle}" Width="150" Click="Button_Click">Сохранить</Button>
         </StackPanel>
     </Grid>

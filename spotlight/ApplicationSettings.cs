@@ -23,6 +23,7 @@ namespace dSearch
         public static ApplicationSettings AppSet { get; set; }
         
         public ObservableCollection<Drive> IndexedDrives { get; set; }
+        public static int DeepFileSearchValue { get; set; }
 
         // Get the application configuration file.
         public static System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
@@ -34,7 +35,7 @@ namespace dSearch
             AppSet = new ApplicationSettings();
             config = ConfigurationManager.OpenMappedExeConfiguration(getConfigFileMap(), ConfigurationUserLevel.None);
 
-           
+            DeepFileSearchValue = Convert.ToInt32(config.AppSettings.Settings["deepFileSearch"].Value);
 
             if (config.AppSettings.Settings["jsonDrives"].Value == "")
             {
@@ -113,7 +114,8 @@ namespace dSearch
 
 
             config.AppSettings.Settings["jsonDrives"].Value = jsonDrives;
-            
+            config.AppSettings.Settings["deepFileSearch"].Value = DeepFileSearchValue.ToString();
+
 
             // Save the configuration file.
             config.Save(ConfigurationSaveMode.Modified);
