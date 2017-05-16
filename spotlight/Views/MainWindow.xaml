@@ -17,6 +17,10 @@
                       ShowMaxRestoreButton="False"
                       SaveWindowPosition="True"
                       KeyDown="Window_OnKeyUp"
+                      Visibility="Collapsed"
+                      MinHeight="70"
+                      MaxHeight="300"
+                      SizeToContent="Height"
                       >
     <Window.Resources>
         <ResourceDictionary>
@@ -58,7 +62,7 @@
 
                  VerticalAlignment="Top"
                  Padding="0"
-                 Margin="13,3,10,0"
+                 Margin="10,3,10,0"
                  BorderThickness="0"
 
                  Background="#f3f3f3"
@@ -72,68 +76,72 @@
                  TextChanged="SearchBox_Input"
                  KeyUp="SearchBox_OnKeyUp"
                  Text="" />
-
-        <ListBox x:Name="listBox" Margin="0,40,0,0" ItemsSource="{Binding Path=MixedList}"
+        <Grid>
+            <ListBox x:Name="listBox" Margin="0,40,0,0" ItemsSource="{Binding Path=MixedList}"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 HorizontalContentAlignment="Stretch">
-            <ListBox.Resources>
-                <Style TargetType="ListBox">
-                    <Setter Property="Background" Value="White" />
-                    <Setter Property="Border.BorderThickness" Value="0" />
-                </Style>
-                <Style TargetType="ListBoxItem">
-                    <Setter Property="Padding" Value="16,0" />
-                    <Setter Property="Background" Value="White" />
-                    <Setter Property="Border.BorderThickness" Value="0" />
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="Black" />
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#e5e5e5" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
+                 HorizontalContentAlignment="Stretch"
 
-                <DataTemplate DataType="{x:Type listItem:SearchItemSmallTitle}">
-                    <Grid Margin="0,7" MouseUp="ResultItem_OnMouseUp" KeyUp="ResultItem_OnKeyUp">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="32"/>
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Height="16" Width="16" Source="{Binding file.Icon}" Margin="0,0,8,0" />
-                        <Grid Grid.Column="1" x:Name="ItemTitle">
+                 >
+                <ListBox.Resources>
+                    <Style TargetType="ListBox">
+                        <Setter Property="Background" Value="White" />
+                        <Setter Property="Border.BorderThickness" Value="0" />
+                    </Style>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Padding" Value="16,0" />
+                        <Setter Property="Background" Value="White" />
+                        <Setter Property="Border.BorderThickness" Value="0" />
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="Black" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#e5e5e5" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+
+                    <DataTemplate DataType="{x:Type listItem:SearchItemSmallTitle}">
+                        <Grid Margin="0,7" MouseUp="ResultItem_OnMouseUp" KeyUp="ResultItem_OnKeyUp">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="32"/>
+                                <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="0" Margin="0,0,10,0">
-                                <local:HighlightTextBlock
+                            <Image Grid.Column="0" Height="16" Width="16" Source="{Binding file.Icon}" Margin="0,0,8,0" />
+                            <Grid Grid.Column="1" x:Name="ItemTitle">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="0" Margin="0,0,10,0">
+                                    <local:HighlightTextBlock
                                                   Text="{Binding file.DisplayName}" Width="Auto"
                                                   HighlightText="{Binding ElementName=SearchBox, Path=Text}"
                                                   FontSize="14" TextWrapping="Wrap" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="1">
-                                <TextBlock HorizontalAlignment="Right" Text="{Binding file.FileLocation}" FontSize="12" Margin="0,2,0,0"
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="1">
+                                    <TextBlock HorizontalAlignment="Right" Text="{Binding file.FileLocation}" FontSize="12" Margin="0,2,0,0"
                                        TextWrapping="Wrap" />
-                            </StackPanel>
+                                </StackPanel>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </DataTemplate>
+                    </DataTemplate>
 
-                <DataTemplate DataType="{x:Type listItem:Group}">
-                    <Grid Margin="0,7">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="10" />
-                        </Grid.ColumnDefinitions>
+                    <DataTemplate DataType="{x:Type listItem:Group}">
+                        <Grid Margin="0,7">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="10" />
+                            </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Column="0" Text="{Binding Name}" FontSize="13" FontWeight="Bold" Foreground="#383838" MouseUp="Group_OnClick" />
-                        <TextBlock Grid.Column="1" Text="&#xe23a;" FontFamily="Segoe UI Symbol" FontSize="13" />
-                    </Grid>
-                </DataTemplate>
-            </ListBox.Resources>
-        </ListBox>
+                            <TextBlock Grid.Column="0" Text="{Binding Name}" FontSize="13" FontWeight="Bold" Foreground="#383838" MouseUp="Group_OnClick" />
+                            <TextBlock Grid.Column="1" Text="&#xe23a;" FontFamily="Segoe UI Symbol" FontSize="13" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.Resources>
+            </ListBox>
+        </Grid>
+        
     </Grid>
 
 </Controls:MetroWindow>

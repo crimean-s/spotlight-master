@@ -48,9 +48,21 @@ namespace dSearch
 
         private void SearchBox_Input(object sender, TextChangedEventArgs e)
         {
+            
             SearchString = SearchBox.Text;
             List<SearchItem> list = GroupToSearchItem(SearchEngine.FilterRangeData(SearchBox.Text, null, 3));
+            
             listBox.ItemsSource = list;
+            if(listBox.Items.Count > 0 && SearchBox.Text.Length > 0)
+            {
+                this.MinHeight = 300;
+                this.MaxHeight = 400;
+                this.Visibility = System.Windows.Visibility.Visible;
+            } else
+            {
+                this.MinHeight = 70;
+                this.MaxHeight = 70;
+            }
         }
 
         private List<SearchItem> GroupToSearchItem(List<GroupSearchItems> items)
