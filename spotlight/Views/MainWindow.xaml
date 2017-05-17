@@ -7,7 +7,7 @@
                       xmlns:local="clr-namespace:dSearch"
                       xmlns:listItem="clr-namespace:dSearch.ListItem"
                       mc:Ignorable="d"
-                      Title="dSearch" Height="321.5" Width="483"
+                      Title="dSearch" Width="483"
 
                       BorderBrush="{DynamicResource AccentColorBrush}"
                       BorderThickness="0"
@@ -17,7 +17,7 @@
                       ShowMaxRestoreButton="False"
                       SaveWindowPosition="True"
                       KeyDown="Window_OnKeyUp"
-                      Visibility="Collapsed"
+                      
                       MinHeight="70"
                       MaxHeight="300"
                       SizeToContent="Height"
