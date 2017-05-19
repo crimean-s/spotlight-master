@@ -33,6 +33,7 @@ namespace dSearch
         public List<SearchItemStruct> SearchItems = new List<SearchItemStruct>();
         public List<GroupSearchItems> Groups = new List<GroupSearchItems>();
         public static FileTypesList FileTypesList = new FileTypesList();
+
         public SearchRangeManager SearchRangeManager = new SearchRangeManager();
 
         public List<string> FileListExluded { get; set; }
@@ -49,22 +50,31 @@ namespace dSearch
             // Проверка конфигурации
 
             // Пути поиска
-            List<string> paths = new List<string>()
+            List<string> paths = new List<string>();
+
+
+            List<string> pathsSystem = new List<string>()
             {
                 Environment.GetFolderPath(Environment.SpecialFolder.Favorites),
                 Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                 Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
+                Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86),
+                Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFiles),
+                Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFilesX86),
                 Environment.GetFolderPath(Environment.SpecialFolder.Programs),
                 Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFiles),
                 Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory),
+                Environment.GetFolderPath(Environment.SpecialFolder.StartMenu),
                 Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)
-            };            
+            };
 
-            var dr = ApplicationSettings.AppSet.IndexedDrives.Where(x=>x.isIndexed == true);
+            var dr = ApplicationSettings.AppSet.IndexedDrives.Where(x => x.isIndexed == true);
             foreach (var item in dr)
             {
                 paths.Add(item.Name);
             }
+
+            paths.AddRange(pathsSystem);
 
             FileList = new List<string>();
 
@@ -370,10 +380,7 @@ namespace dSearch
         public void AddQuery(string query, FileInformation file)
         {
             SearchRangeManager.AddQuery(GetSearchIgnoreFilter(query), file.FileLocation);
-        }
-
-        
-
-        
+        }   
+                
     }
 }

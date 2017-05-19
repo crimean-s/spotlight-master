@@ -6,7 +6,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:dSearch"
       mc:Ignorable="d" 
-      Title="dSearch" Height="321.5" Width="483"
+      Title="dSearch - настройки" Height="321.5" Width="483"
       BorderBrush="{DynamicResource AccentColorBrush}"
       BorderThickness="1" Closing="MetroWindow_Closing"
       ShowMaxRestoreButton="False"
