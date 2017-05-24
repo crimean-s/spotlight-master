@@ -136,7 +136,7 @@ namespace dSearch
             }
             catch (Exception e)
             {
-                //System.Windows.MessageBox.Show(e.ToString());
+                var ex = e;
             }
 
             
@@ -152,6 +152,7 @@ namespace dSearch
             }
             catch (Exception e)
             {
+                var ex = e;
                 return "";
             }
         }

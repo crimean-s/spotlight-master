@@ -57,6 +57,8 @@ namespace dSearch
             {
                 Environment.GetFolderPath(Environment.SpecialFolder.Favorites),
                 Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
+                Environment.GetFolderPath(Environment.SpecialFolder.MyVideos),
                 Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
                 Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86),
                 Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFiles),
